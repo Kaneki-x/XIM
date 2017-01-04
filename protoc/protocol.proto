@@ -1,0 +1,32 @@
+import "request/request.proto";
+import "response/response.proto";
+import "push/push.proto";
+import "message/message.proto";
+
+option java_package = "com.kaneki.xim.protoc";
+option java_outer_classname = "XProtocol";
+
+message Protocol {
+    extensions 100 to max;
+    required Type type = 1;
+
+    required int64 toId = 2;
+    required int64 fromId  = 3;
+    required string packetId = 4;
+    required int64 packetSize = 5;
+    required int64 created = 6;
+}
+
+extend Protocol {
+    optional Request requset = 100;
+    optional Response respone = 101;
+    optional Push push = 102;
+    optional Message message = 103;
+}
+
+enum Type {
+    BASE_TYPE_REQUEST = 0;
+    BASE_TYPE_RESPONSE = 1;
+    BASE_TYPE_PUSH = 2;
+    BASE_TYPE_MESSAGE = 3;
+}

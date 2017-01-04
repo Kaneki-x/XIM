@@ -1,0 +1,17 @@
+import "request/login_request.proto";
+
+option java_package = "com.kaneki.xim.protoc.request";
+option java_outer_classname = "XRequest";
+
+message Request {
+    extensions 100 to max;
+    required RequestType type = 1;
+}
+
+extend Request {
+    optional LoginRequest loginRequest = 100;
+}
+
+enum RequestType {
+    REQUEST_TYPE_LOGIN = 0;
+}

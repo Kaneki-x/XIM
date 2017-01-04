@@ -1,0 +1,17 @@
+import "response/login_response.proto";
+
+option java_package = "com.kaneki.xim.protoc.response";
+option java_outer_classname = "XResponse";
+
+message Response {
+    extensions 100 to max;
+    required ResponseType type = 1;
+}
+
+extend Response {
+    optional LoginResponse loginResponse = 100;
+}
+
+enum ResponseType {
+    RESPONSE_TYPE_LOGIN = 0;
+}

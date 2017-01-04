@@ -1,0 +1,17 @@
+import "message/text_message.proto";
+
+option java_package = "com.kaneki.xim.protoc.message";
+option java_outer_classname = "XMessage";
+
+message Message {
+    extensions 100 to max;
+    required MessageType type = 1;
+}
+
+extend Message {
+    optional TextMessage textMessage = 100;
+}
+
+enum MessageType {
+    MESSAGE_TYPE_TEXT = 0;
+}

@@ -1,0 +1,17 @@
+import "push/kick_out_push.proto";
+
+option java_package = "com.kaneki.xim.protoc.push";
+option java_outer_classname = "XPush";
+
+message Push {
+    extensions 100 to max;
+    required PushType type = 1;
+}
+
+extend Push {
+    optional KickOutPush kickOutPush = 100;
+}
+
+enum PushType {
+    PUSH_TYPE_KICK_OUT = 0;
+}

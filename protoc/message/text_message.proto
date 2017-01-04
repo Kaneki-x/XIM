@@ -1,0 +1,6 @@
+option java_package = "com.kaneki.xim.protoc.message";
+option java_outer_classname = "XTextMessage";
+
+message TextMessage {
+    required string content = 2;
+}

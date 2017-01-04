@@ -1,0 +1,7 @@
+option java_package = "com.kaneki.xim.protoc.response";
+option java_outer_classname = "XLoginResponse";
+
+message LoginResponse {
+    required int32 code = 1;
+    required string msg = 2;
+}

@@ -1,0 +1,7 @@
+option java_package = "com.kaneki.xim.protoc.request";
+option java_outer_classname = "XLoginRequest";
+
+message LoginRequest {
+    required string user = 1;
+    required string pswd = 2;
+}
