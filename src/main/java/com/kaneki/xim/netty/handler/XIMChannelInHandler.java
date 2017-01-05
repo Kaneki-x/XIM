@@ -1,5 +1,6 @@
 package com.kaneki.xim.netty.handler;
 
+import com.kaneki.xim.netty.ServerChannelMap;
 import com.kaneki.xim.netty.XServerLanuch;
 import com.kaneki.xim.protoc.XProtocol;
 import com.kaneki.xim.protoc.request.XLoginRequest;
@@ -10,6 +11,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
 
 /**
  * @author yueqian
@@ -33,14 +36,14 @@ public class XIMChannelInHandler extends ChannelInboundHandlerAdapter {
 
             logger.info(loginRequest.getUser()+ " is login");
 
-            XServerLanuch.channelHandlerContextHashMap.put(fromId, ctx);
+            ServerChannelMap.add(fromId, ctx);
 
             protocol = XProtocol.Protocol.newBuilder()
                     .setCreated(0)
                     .setType(XProtocol.Type.BASE_TYPE_RESPONSE)
                     .setFromId(0)
                     .setToId(0)
-                    .setPacketId(1)
+                    .setPacketId(UUID.randomUUID().toString())
                     .setPacketSize(0)
                     .setExtension(XProtocol.respone, XResponse.Response.newBuilder()
                             .setType(XResponse.ResponseType.RESPONSE_TYPE_LOGIN)
@@ -52,8 +55,13 @@ public class XIMChannelInHandler extends ChannelInboundHandlerAdapter {
                     .build();
             ctx.writeAndFlush(protocol);
         } else {
-            XServerLanuch.channelHandlerContextHashMap.get(toId).writeAndFlush(msg);
+            ServerChannelMap.get(toId).writeAndFlush(msg);
         }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ServerChannelMap.remove(ctx);
     }
 
     @Override
@@ -64,6 +72,7 @@ public class XIMChannelInHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
+        ServerChannelMap.remove(ctx);
         cause.printStackTrace();
         ctx.close();
     }

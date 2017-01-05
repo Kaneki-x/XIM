@@ -11,14 +11,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @email yueqian@mogujie.com
  */
 public class ServerChannelMap {
-    private static ConcurrentHashMap<String, ChannelHandlerContext> channelHandlerContextHashMap = new ConcurrentHashMap<String, ChannelHandlerContext>();
+    private static ConcurrentHashMap<Long, ChannelHandlerContext> channelHandlerContextHashMap = new ConcurrentHashMap<Long, ChannelHandlerContext>();
 
-    public static void add(String channelId, ChannelHandlerContext channelHandlerContext) {
-        channelHandlerContextHashMap.put(channelId, channelHandlerContext);
+    public static void add(long id, ChannelHandlerContext channelHandlerContext) {
+        channelHandlerContextHashMap.put(id, channelHandlerContext);
     }
 
-    public static ChannelHandlerContext get(String channelId){
-        return channelHandlerContextHashMap.get(channelId);
+    public static ChannelHandlerContext get(long id){
+        return channelHandlerContextHashMap.get(id);
     }
 
     public static void remove(ChannelHandlerContext channelHandlerContext) {

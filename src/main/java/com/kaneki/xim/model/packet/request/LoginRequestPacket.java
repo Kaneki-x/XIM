@@ -12,7 +12,7 @@ import com.kaneki.xim.protoc.request.XRequest;
  */
 public class LoginRequestPacket extends Packet {
 
-    public int getBodyType() {
+    public int decodeBodyType() {
         return XRequest.RequestType.REQUEST_TYPE_LOGIN_VALUE;
     }
 

@@ -2,6 +2,9 @@ package com.kaneki.xim.parse;
 
 import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.MessageLite;
+import com.kaneki.xim.model.packet.Packet;
+import com.kaneki.xim.model.packet.PacketFactory;
+import com.kaneki.xim.protoc.XProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
@@ -26,7 +29,15 @@ public class XProtobufDecoder extends ProtobufDecoder {
         super.decode(ctx, msg, out);
 
         if (!out.isEmpty()) {
+            XProtocol.Protocol protocol = (XProtocol.Protocol) out.get(0);
+            Packet packet = PacketFactory.getInstance().getPacket(protocol);
 
+            if (packet != null) {
+                packet.decodeHeader(protocol);
+                packet.decodeBody(protocol);
+
+                out.add(0, packet);
+            }
         }
     }
 }

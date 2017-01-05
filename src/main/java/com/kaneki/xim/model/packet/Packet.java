@@ -9,14 +9,13 @@ import com.kaneki.xim.protoc.XProtocol;
  * @email yueqian@mogujie.com
  */
 public abstract class Packet {
-    String packetId;
-    long toId;
-    long formId;
-    long create;
-    long packetSize;
-    int headerType;
-
-    int bodyType;
+    private String packetId;
+    private long toId;
+    private long formId;
+    private long create;
+    private long packetSize;
+    private int headerType;
+    private int bodyType;
 
     public String getPacketId() {
         return packetId;
@@ -70,6 +69,10 @@ public abstract class Packet {
         this.bodyType = bodyType;
     }
 
+    public int getBodyType() {
+        return bodyType;
+    }
+
     public void decodeHeader(Object msg) throws Exception {
         XProtocol.Protocol protocol = (XProtocol.Protocol) msg;
         setFormId(protocol.getFromId());
@@ -78,9 +81,11 @@ public abstract class Packet {
         setPacketSize(protocol.getPacketSize());
         setHeaderType(protocol.getType().getNumber());
         setCreate(protocol.getCreated());
+        setBodyType(decodeBodyType());
+
     }
 
-    public abstract int getBodyType();
+    public abstract int decodeBodyType();
 
     public abstract void decodeBody(XProtocol.Protocol protocol);
 
