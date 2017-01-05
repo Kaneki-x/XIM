@@ -1,7 +1,6 @@
 package com.kaneki.xim.netty.handler;
 
 import com.kaneki.xim.netty.ServerChannelMap;
-import com.kaneki.xim.netty.XServerLanuch;
 import com.kaneki.xim.protoc.XProtocol;
 import com.kaneki.xim.protoc.request.XLoginRequest;
 import com.kaneki.xim.protoc.request.XRequest;

@@ -23,7 +23,6 @@ public class XProtobufDecoder extends ProtobufDecoder {
         super(prototype, extensionRegistry);
     }
 
-
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
         super.decode(ctx, msg, out);
@@ -37,7 +36,8 @@ public class XProtobufDecoder extends ProtobufDecoder {
                 packet.decodeBody(protocol);
 
                 out.add(0, packet);
-            }
+            } else
+                out.remove(0);
         }
     }
 }
