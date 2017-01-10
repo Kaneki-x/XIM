@@ -15,22 +15,7 @@ import com.kaneki.xim.protoc.response.XResponse;
  */
 public class PacketFactory {
 
-    private static PacketFactory instance;
-
-    public static PacketFactory getInstance() {
-        if (instance == null) {
-            synchronized (PacketFactory.class) {
-                if (instance == null) {
-                    instance = new PacketFactory();
-                    return instance;
-                } else
-                    return instance;
-            }
-        } else
-            return instance;
-    }
-
-    public Packet getPacket(XProtocol.Protocol protocol) {
+    public static Packet getPacket(XProtocol.Protocol protocol) {
         switch (protocol.getType().getNumber()) {
             case XProtocol.Type.BASE_TYPE_REQUEST_VALUE:
                 switch (protocol.getExtension(XProtocol.requset).getType().getNumber()) {

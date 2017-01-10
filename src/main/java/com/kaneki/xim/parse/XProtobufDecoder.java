@@ -29,7 +29,7 @@ public class XProtobufDecoder extends ProtobufDecoder {
 
         if (!out.isEmpty()) {
             XProtocol.Protocol protocol = (XProtocol.Protocol) out.get(0);
-            Packet packet = PacketFactory.getInstance().getPacket(protocol);
+            Packet packet = PacketFactory.getPacket(protocol);
 
             if (packet != null) {
                 packet.decodeHeader(protocol);
